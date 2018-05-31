@@ -15,7 +15,7 @@ class C extends BaseComponent {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values)
-                this.props.login(values.username, values.password, values.remember)
+                this.props.decryptWallet(values.privateKey)
 
             }
         })
@@ -23,7 +23,7 @@ class C extends BaseComponent {
 
     getInputProps() {
         const {getFieldDecorator} = this.props.form
-        const privateKey_fn = getFieldDecorator('username', {
+        const privateKey_fn = getFieldDecorator('privateKey', {
             rules: [{required: true, message: 'Please input your private key!'}],
             initialValue: ''
         })

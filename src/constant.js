@@ -5,6 +5,13 @@ export const USER_ROLE = {
     COUNCIL: 'COUNCIL'
 };
 
+export const WEB3 = {
+    HTTP : 'http://192.168.187.132:8545',
+    ABI : '',
+    ADDRESS_CONTRACT : '',
+    ACCOUNT : '0x4aff0fc828f84704c10b7db6223171a58bcc3076'
+}
+
 export const USER_LANGUAGE = {
     en: 'en',
     zh: 'zh'

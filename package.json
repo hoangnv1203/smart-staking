@@ -17,6 +17,7 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
+    "ethereumjs-util": "^5.2.0",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
@@ -31,7 +32,8 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-transition-group": "^2.3.1",
     "redux": "4.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "web3": "^1.0.0-beta.34"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

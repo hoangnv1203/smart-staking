@@ -16,12 +16,12 @@ export default createContainer(Component, (state)=>{
     const userService = new UserService()
 
     return {
-        async login(username, password, profile){
+        async decryptWallet(privateKey){
             try {
-                const rs = await userService.login(username, password)
+                const rs = await userService.decryptWallet(privateKey)
 
                 if (rs) {
-                    message.success('login success')
+                    message.success('Access success')
                     userService.path.push('/home')
                 }
             } catch (err) {

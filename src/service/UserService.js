@@ -1,39 +1,37 @@
 import BaseService from '../model/BaseService'
+import Web3 from 'web3'
 import _ from 'lodash'
-import {USER_ROLE} from '@/constant'
-import {api_request} from '@/util';
+import WalletService from '@/service/WalletService'
+import {WEB3} from '@/constant'
 
 export default class extends BaseService {
 
-    async login(username, password, opts={}){
+    async initWeb3(){
+        this.web3 = new Web3(new Web3.providers.HttpProvider(WEB3.HTTP))
+        const SmartTaking = web3.eth.contract(WEB3.API)
+        const smartTaking = SmartTaking.at(WEB3.ADDRESS_CONTRACT)
+        this.web3.eth.defaultAccount = WEB3.ACCOUNT
 
+        await this.dispatch(userRedux.actions.contract_update(smartTaking))
+        await this.dispatch(userRedux.actions.web3_update(this.web3))
+    }
+
+    async decryptWallet(privatekey, opts={}){
         const userRedux = this.store.getRedux('user')
+        this.initWeb3()
+        const wallet = new WalletService(privatekey)
+        const walletAddress = wallet.getAddressString()
 
-        // call API /login
-        const res = await api_request({
-            path : '/user/login',
-            method : 'get',
-            data : {
-                username,
-                password
-            }
-        });
-
-        await this.dispatch(userRedux.actions.login_form_reset())
-
-        await this.dispatch(userRedux.actions.is_login_update(true))
-
-        if ([USER_ROLE.ADMIN, USER_ROLE.COUNCIL].includes(res.user.role)) {
-            await store.dispatch(userRedux.actions.is_admin_update(true))
+        if (!walletAddress) {
+            return
         }
 
-        await this.dispatch(userRedux.actions.profile_update(res.user.profile))
-        await this.dispatch(userRedux.actions.role_update(res.user.role))
-
-        sessionStorage.setItem('api-token', res['api-token']);
+        wallet.balance = this.web3.eth.getBalance(walletAddress)
+         await this.dispatch(userRedux.actions.login_form_reset())
+        await this.dispatch(userRedux.actions.is_login_update(true))
+        await this.dispatch(userRedux.actions.wallet_update(wallet))
 
         return true
-
     }
 
     async register(username, password, profile) {

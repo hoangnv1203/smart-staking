@@ -51,7 +51,7 @@ export default class extends BaseComponent {
         return (
             <Header className="c_Header">
                 <Menu onClick={this.clickItem.bind(this)} className="c_Header_Menu" selectedKeys={['mail']} mode="horizontal">
-                    <Menu.Item className="c_MenuItem logo" key="home">
+                    <Menu.Item className="c_MenuItem logo" key="home-icon">
                         <img src='/assets/images/Elastos_Logo_Temp.png' />
                     </Menu.Item>
 
